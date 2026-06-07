@@ -1,0 +1,510 @@
+/* ==========================================================================
+頁面大框架佈局 (Blog Layout Base)
+   ========================================================================== */
+.blog-layout-container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.blog-hero {
+    /*高度防禦：在桌機上改用 min-height，既符合設計稿的 532px，又能防止手機版卡片垂直堆疊時被砍頭 */
+    min-height: 380px;
+    padding: 80px 0; /* 左右內距交給 .container 處理以防水平捲軸 */
+    
+    /*核心背景圖三合一黃金公式 */
+    background-image: linear-gradient(var(--color-dark-40a), var(--color-dark-40a)), /* 這層是 Mask 遮罩 */
+    url('../Img/blog_banner.png');
+    background-size: cover;       /* 確保圖片撐滿整個區塊，且不比例失真 */
+    background-position: center;  /* 無論螢幕怎麼縮放，圖片永遠置中對齊 */
+    background-repeat: no-repeat; /* 防止圖片像壁紙一樣重複平鋪 */
+    
+    /*防禦型備用色 */
+    background-color: var(--color-primary-50); 
+    
+    /* 確保內置元件垂直穩定 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
+左側邊欄樣式 (Sidebar & Category List)
+   ========================================================================== */
+.sidebar {
+  width: 196px;
+  flex-shrink: 0; /* 防止桌機版側邊欄被內容壓縮 */
+  position: sticky;
+  top: 40px; /* 捲動時固定在頂部，提升閱讀體驗 */
+}
+
+.category-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  width: 100%;          /* 讓容器寬度自然填滿 sidebar */
+}
+
+.category-list li {
+  display: flex;
+  justify-content: center; /* 確保 180px 的按鈕在 196px 的側邊欄內完美居中 */
+}
+
+.category-list li a {
+  display: block;
+  text-decoration: none;
+  color: var(--color-neutral-700);
+  font-weight: 700;
+  text-align: center;
+  padding: 14px 24px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+/* 滑鼠懸停與選中當前狀態 */
+.category-list li a:hover,
+.category-list li a.active {
+  background-color: var(--color-primary-900); /* 完美沿用深咖啡色背景 */
+  color: var(--color-neutral-0);            /* 文字反白 */
+}
+
+/* ==========================================================================
+右側內容區與文章卡片 (Content & Article Cards)
+   ========================================================================== */
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* 依照設計稿調整卡片與卡片之間的垂直舒適間距 */
+}
+
+.card {
+  display: flex;
+  gap: 32px;               /* 圖片與右側內文區的橫向舒適間距 */
+  padding-bottom: 40px;
+  border-bottom: 1px solid #E0E0E0; /* 呼應模板的細緻直角底部分割線 */
+  background-color: transparent;
+  align-items: flex-start; /* 確保內容由頂部對齊開始延伸 */
+}
+
+/* 最後一張卡片自動移除底部分割線，維持頁面乾淨 */
+.card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* 圖片防禦容器 */
+.card-img-wrap {
+  flex-shrink: 0;          /* 防禦型設定：防止桌機版大圖被文字推擠而縮小變形 */
+  width: 526px;            /* 🎯 精準還原 Figma 設計稿大圖寬度 */
+  height: 314px;           /* 🎯 精準還原 Figma 設計稿大圖高度 */
+  overflow: hidden;
+  border-radius: 0 !important; /* ⚡ 堅決不開圓角，百分之百極致直角 */
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* 自動裁切多餘邊緣，確保任何圖片上傳都不會拉伸變形 */
+  border-radius: 0 !important; /* ⚡ 確保圖片四角也是絕對直角 */
+  transition: transform 0.4s ease; /* 為滑鼠懸停保留優雅的微互動慢速動態 */
+}
+
+/* 微互動：滑鼠移入卡片時，直角大圖微微放大，極具高階網頁質感 */
+.card:hover .card-img {
+  transform: scale(1.02);
+}
+
+/* 文章內文區 */
+.card-body {
+  flex-grow: 1;
+  min-height: 314px;       /* 讓文字區塊總高度與左側大圖完美齊平 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 讓標籤、標題、數據線在 314px 高度內完美的垂直居中對齊 */
+}
+
+/* 上方分類標籤 */
+.card-meta {
+  margin-bottom: 16px;     /* 拿捏標籤與下方主標題的呼吸間距 */
+}
+
+.card-meta .tag {
+  color: var(--color-neutral-700);
+  font-weight: 500;
+}
+
+/* 中間文章主標題 */
+.card-title {
+  margin-bottom: 24px;     /* 拿捏主標題與下方數據列的黃金比例間距 */
+  line-height: 1.5;
+}
+
+.card-title a {
+  text-decoration: none;
+  color: var(--color-primary-900); /* 完美沿用全站統一的深咖啡色 */
+  transition: color 0.2s ease;
+}
+
+/* 標題懸停微動態 */
+.card-title a:hover {
+  color: #7A4B31;          /* 懸停時轉為優雅的中調大地色 */
+}
+
+/* 底部的日期與瀏覽數據列 */
+
+.blog-stats .date {
+  font-weight: 400;
+}
+
+/* 觀看與分享小圖標的對齊微調 */
+.blog-stats .material-symbols-outlined {
+  font-size: 16px;         /* 縮小 Material Symbols 尺寸使其與旁邊的文字完美對齊 */
+  vertical-align: middle;
+}
+
+/* 文章摘要：高階防護型多行省略號 */
+.card-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #666666;
+  margin-bottom: 20px;
+  
+  /* 當內文字數過多時，自動在第 3 行末尾截斷並補上縮寫符 (...) */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 詳細內容連結按鈕 */
+.btn-readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--color-primary-900);
+  font-weight: 700;
+  font-size: 15px;
+  transition: gap 0.2s ease-in-out;
+}
+
+.btn-readmore span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* 滑鼠懸停時箭頭向右微移的動態細節 */
+.btn-readmore:hover {
+  gap: 12px;
+}
+
+/* SUBSCRIPTION 訂閱區塊 */
+.section-subscription {
+    background-image: url('../Img/subscription_bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: 440px;           
+    display: flex;
+    align-items: center;     
+    box-sizing: border-box;
+
+    &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-dark-60a);
+    position: absolute;
+    top: 0;
+    left: 0;
+    }
+}
+
+.sub-inline-btn:hover {
+    background-color: var(--color-neutral-900) !important;
+    color: var(--color-neutral-0) !important;
+}
+
+.article-layout-container {
+  max-width: 852px;       /* 🎯 大師級排版精髓：限制長文最大寬度，眼睛不易疲勞 */
+  margin: 0 auto;
+  display: block;         /* 解除列表頁的 flex 雙欄設定，改為乾淨單欄長文佈局 */
+}
+
+/* 返回按鈕微互動 */
+.btn-back {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.btn-back:hover {
+  color: var(--color-primary-900);
+}
+
+/* 內頁主標題規格 */
+.breadcrumbs {
+  background-color: var(--color-primary-900); /* 完美沿用深咖啡色 */
+}
+.breadcrumbs a {
+  transition: opacity 0.2s ease;
+}
+.breadcrumbs a:hover {
+  opacity: 0.8;
+}
+
+/* 2. 文章內容大容器 */
+.article-main-container {
+  max-width: 1076px;         /* 🎯 嚴格還原 Figma 指定的 1076px 黃金閱讀寬度 */
+  margin: 0 auto;
+}
+
+.article-main-title {
+  font-size: 48px;           /* 🎯 遵循 Figma heading/XX Large 48px */
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.article-subtitle {
+  font-size: 24px;           /* 🎯 遵循 Figma heading/Small 24px */
+  line-height: 1.5;
+}
+
+/* 3. 內頁圖片與直角防護 */
+.article-img-box {
+  width: 100%;
+  height: 486px;             /* 🎯 遵循 Figma 指定圖片高度 486px */
+  overflow: hidden;
+  border-radius: 0px !important; /* ⚡ 貫徹極致直角美學 */
+}
+
+/* 4. 雜誌級直角 Pullquote 區塊 */
+.article-pullquote {
+  border-radius: 0px !important;
+  border-left: 6px solid var(--color-primary-900); /* 霸氣的左對齊線 */
+}
+.article-pullquote h3 {
+  font-size: 20px;           /* 🎯 遵循 Figma heading/X Small 20px bold */
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* 5. 像素級還原對比數據表格 (Table) */
+.article-custom-table {
+  border-collapse: collapse;
+  margin: 24px 0;
+  border: 1px solid var(--color-neutral-500); /* 外框灰色線條 */
+  border-radius: 0px;
+}
+
+.article-custom-table th {
+  background-color: var(--color-primary-900); /* 表頭為 Nelson 經典深咖啡色 */
+  color: var(--color-neutral-0);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 12px 24px;
+  text-align: left;
+  border: 1px solid var(--color-neutral-500);
+}
+
+.article-custom-table td {
+  background-color: var(--color-primary-50); /* 儲存格底色為溫潤米色 */
+  color: var(--color-primary-900);
+  font-size: 16px;
+  padding: 12px 24px;
+  border: 1px solid var(--color-neutral-500);
+  line-height: 1.5;
+}
+
+/* 6. 結論與數據分享列 */
+.article-bottom-block {
+  border-top: 1px solid var(--color-neutral-500); /* 還原底部細線 */
+}
+
+.icon-outline-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-neutral-700);
+  border-radius: 1000px;     /* 🎯 遵循 Figma 圓形按鈕規格 */
+  color: var(--color-neutral-700);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.icon-outline-btn:hover {
+  background-color: var(--color-neutral-700);
+  color: var(--color-neutral-0);
+}
+
+/* 7. 推薦文章卡片區 (Related Grid) */
+.blog-card {
+  background-color: transparent;
+  min-width: 280px;
+}
+
+.blog-card-img {
+  width: 100%;
+  height: 240px;             /* 🎯 遵循 Figma 規格高度 240px */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0px !important; /* ⚡ 直角 */
+}
+
+/* 8. Tom 頁尾自訂樣式 */
+.footer-circle-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-neutral-0);
+  border-radius: 1000px;
+  color: var(--color-neutral-0);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-circle-icon:hover {
+  background-color: var(--color-neutral-0);
+  color: var(--color-primary-900);
+}
+
+.footer-input {
+  background-color: transparent;
+  border: 1px solid var(--color-neutral-0);
+  border-radius: 40px;       /* 🎯 遵循 Figma 輸入框圓角 40px */
+  padding: 12px 24px;
+  color: var(--color-neutral-0);
+  font-size: 16px;
+  outline: none;
+}
+
+.footer-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-textarea {
+  resize: none;
+}
+
+.footer-submit-btn {
+  background-color: var(--color-neutral-0);
+  color: var(--color-neutral-700);
+  border: none;
+  border-radius: 999px;      /* 🎯 遵循 Figma 按鈕滿版圓角 999px */
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.footer-submit-btn:hover {
+  background-color: #E6E6E6;
+}
+
+/* ==========================================================================
+RWD 響應式中斷點防禦 (992px 手機與平板極致優化)
+   ========================================================================== */
+@media (max-width: 992px) {
+  /* 轉為單欄垂直排列 */
+    .blog-layout-container {
+        flex-direction: column;
+        gap: 32px;
+  }
+
+    .blog-hero {
+        padding: 60px 16px;
+        min-height: auto; /* 釋放高度，讓手機版完全靠內容自然撐開 */  
+        background-image: linear-gradient(var(--color-dark-40a), var(--color-dark-40a)), /* 這層是 Mask 遮罩 */
+         url('../Img/mobile/blog_bannerm.png'); 
+    }
+
+  /* 側邊欄在手機版轉變為水平橫向滑動標籤 */
+  .sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+
+  .category-list {
+    flex-direction: row;
+    overflow-x: auto;              /* 解鎖水平滾動軸 */
+    white-space: nowrap;           /* 強制文字不換行 */
+    padding-bottom: 8px;           /* 預留滾動呼吸空間 */
+    gap: 8px;
+    
+    /* 隱藏手機原生滾動條，維持介面極簡乾淨 */
+    -ms-overflow-style: none;      /* IE and Edge */
+    scrollbar-width: none;         /* Firefox */
+  }
+  
+  .category-list::-webkit-scrollbar {
+    display: none;
+  }
+
+    .category-list li {
+    display: inline-block;
+  }
+
+  .category-list li a {
+    width: auto;                   /* 手機版按鈕寬度由字數自動撐開，不鎖死 180px */
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  /* 文章卡片在手機版改為上下堆疊 */
+    .card {
+    flex-direction: column; 
+    gap: 20px;
+    padding-bottom: 32px;
+  }
+
+  /* 💡 核心防禦：手機版圖片改為滿版，但利用 aspect-ratio 自動鎖定 526:314 的黃金比例 */
+  .card-img-wrap {
+    width: 100%;           
+    height: auto;
+    aspect-ratio: 526 / 314; /* 無論手機螢幕多寬，圖片永遠等比例縮放且絕不變形 */
+    border-radius: 0 !important; /* ⚡ 行動版依然嚴格維持直角 */
+  }
+
+  /* 釋放內文區的桌機高度限制 */
+  .card-body {
+    min-height: auto;
+    width: 100%;
+  }
+  
+  .card-meta {
+    margin-bottom: 8px;
+  }
+  
+  .card-title {
+    margin-bottom: 16px;
+  }
+  
+      /* 訂閱區塊行動版排版 */
+    .section-subscription {
+        height: auto;        
+        padding: 50px 0;
+    }
+
+  .article-img-box {
+    height: 240px;           /* 手機版圖片自適應高度 */
+  }
+  .related-cards-grid {
+    flex-direction: column;  /* 推薦文章在行動版改為上下單欄堆疊 */
+    gap: 32px;
+  }
+
+}

@@ -1,0 +1,409 @@
+/* ==========================================================================
+   index.css - 服務區塊最終優化重整版
+   ========================================================================== */
+
+.hero-btn:hover {
+    background-color: var(--color-neutral-900);
+}
+
+.hero {
+    /* 🎯 桌機版解鎖：將 height 改為 min-height，既能維持滿版視覺，又能保留內容增長時的彈性 */
+    height: auto !important; 
+    min-height: calc(100vh - 64px);
+    position: relative;
+    overflow: hidden; /* 🎯 超級關鍵：防止漂浮裝飾物超出螢幕右側而產生討厭的網頁橫向捲軸 */
+}
+
+/* 優化桌機版圖片外層容器的 Flex 站姿 */
+.hero .col-7 {
+    display: flex;
+    align-items: flex-end; /* 讓 Nelson 人像完美靠底部站立 */
+    justify-content: center;
+}
+
+.hero .col-7 > div {
+    width: 100%;
+    height: 100%;
+}
+
+button.btn-outline:hover,
+a.btn-outline:hover {
+    border: 1px solid var(--color-neutral-700) !important;
+    background-color: var(--color-primary-100) !important; /* 米色背景(50)上搭配 100 亮色更亮眼 */
+    color: var(--color-neutral-900) !important;
+    cursor: pointer;
+}
+
+/* 漂浮裝飾物定位與動畫設定 */
+.shape-flower-lt {
+    top: 10%;
+    left: 4%;
+    width: 80px;
+    height: auto;
+}
+
+.shape-blob-rb {
+    bottom: 40px;
+    right: 60px;
+    width: 100px;
+    height: auto;
+    z-index: 2;
+    animation-duration: 4s;
+    animation-delay: 0.2s;
+}
+
+.shape-wave-bottom {
+    bottom: 8%;
+    left: 30%;
+    width: 210px;
+    height: auto;
+    animation-delay: 0.5s;
+    z-index: 5;
+}
+
+.shape-blob-center {
+    top: 15%;
+    left: 30%;
+    width: 120px;
+    height: auto;
+    animation-delay: 1s;
+    z-index: 10;
+}
+
+.shape-flower-rc {
+    top: 25%;
+    right: 3px;
+    width: 90px;
+    height: auto;
+    z-index: 3;
+    animation-delay: 1.5s;
+}
+
+.shape-decor {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    animation: superFloating 3.5s ease-in-out infinite;
+}
+
+/* 服務卡片網格 */
+.services-grid {
+    display: flex;
+    flex-wrap: wrap; 
+}
+
+/* 單個服務卡片容器 */
+.service-card {
+    background-color: var(--color-primary-50);
+    /* 大螢幕桌機：一排放 4 張卡片精準 Fill 公式 */
+    width: calc((100% - (var(--gutter) * 3)) / 4); 
+    height: 174px; 
+    padding: 24px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 懸停滑鼠特效 */
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-bottom {
+    width: 100%;
+}
+
+.card-title {
+    color: var(--color-neutral-700) !important;
+    margin-bottom: 4px;
+}
+
+.card-description {
+    color: var(--color-neutral-700);
+    line-height: 1.5;
+    margin: 0; 
+}
+
+.service-icon .material-symbols-outlined {
+    font-size: 28px;
+    color: var(--color-neutral-900);
+}
+
+.arrow-btn {
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-neutral-700);
+    border-radius: 50%;
+    color: var(--color-neutral-0);
+    transition: background-color 0.3s ease;
+    flex-shrink: 0; /* 核心防禦：保護圓形按鈕不因文字增長而被推扁 */
+}
+
+.arrow-btn .material-symbols-outlined {
+    font-size: 24px; 
+}
+
+.arrow-btn:hover {
+    background-color: var(--color-neutral-900); 
+}
+
+/* Projects 專案區塊 */
+.project-card {
+    width: 100%;        
+    height: 397px;      
+    position: relative;
+    overflow: hidden;    
+}
+
+.project-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: transform 0.5s ease;
+}
+
+.project-card {
+  &:nth-of-type(1) {
+    background-image: url("../Img/project_1.png");
+  }
+
+  &:nth-of-type(2) {
+    background-image: url("../Img/project_2.png");
+  }
+
+  &:nth-of-type(3) {
+    background-image: url("../Img/project_3.png");
+  }
+
+  &:nth-of-type(4) {
+    background-image: url("../Img/project_4.png");
+  }
+
+}
+
+.project-content {
+  max-width: 386px;
+}
+
+.projects-btn {
+    transition: background-color 0.3s ease;
+}
+.projects-btn:hover {
+    background-color: var(--color-neutral-900); 
+} 
+
+.project-card:hover .project-bg-img {
+    transform: scale(1.04); 
+}
+
+/* BLOGS 部落格區塊 */
+.blog-header-bar {
+    max-width: 1296px;  
+    margin: 0 auto;     
+    height: 120px;      
+    box-sizing: border-box;
+}
+
+.blog-card {
+    width: calc((100% - (var(--gutter) * 2)) / 3); 
+    max-width: 416px;        
+    height: 429px;           
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card .blog-img-box {
+    width: 100%;             
+    height: 240px;           
+    flex-shrink: 0;          
+}
+
+.blog-card .blog-content {
+    flex-grow: 1;            
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    box-sizing: border-box;
+}
+
+.blog-card .blog-img-box img {
+    transition: transform 0.5s ease;
+}
+.blog-card:hover .blog-img-box img {
+    transform: scale(1.04); 
+}
+
+.blog-more-btn {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+button.blog-more-btn:hover,
+a.blog-more-btn:hover {
+    border: 1px solid var(--color-neutral-700) !important;
+    background-color: var(--color-primary-100) !important;
+    color: var(--color-neutral-900) !important;
+}
+
+/* SUBSCRIPTION 訂閱區塊 */
+.section-subscription {
+    background-image: url('../Img/subscription_bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: 440px;           
+    display: flex;
+    align-items: center;     
+    box-sizing: border-box;
+
+    &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-dark-60a);
+    position: absolute;
+    top: 0;
+    left: 0;
+    }
+}
+
+
+.sub-inline-btn:hover {
+    background-color: var(--color-neutral-900) !important;
+    color: var(--color-neutral-0) !important;
+}
+
+/* ==========================================================================
+   RWD 響應式佈局調整 (統一修復至標準 992px 斷點)
+   ========================================================================== */
+
+/* 電腦版探索更多作品控制 */
+@media (min-width: 993px) {
+    .project-card.card-to-hide:not(.active) {
+        display: none !important;
+    }
+    .project-card.card-to-hide.active {
+        display: block !important;
+    }
+}
+
+/* 筆電或小螢幕平板適應 */
+@media (max-width: 1200px) {
+    .service-card {
+        width: calc((100% - var(--gutter)) / 2);
+    }
+}
+@media (max-width: 375px) {
+  .project-card {
+    padding-top: 280px;
+
+    &:nth-of-type(1) {
+      background-image: url("../Img/mobile/project_1m.png");
+    }
+
+    &:nth-of-type(2) {
+      background-image: url("../Img/mobile/project_2m.png");
+    }
+
+    &:nth-of-type(3) {
+      background-image: url("../Img/mobile/project_3m.png");
+    }
+
+    &:nth-of-type(4) {
+    background-image: url("../Img/mobile/project_4m.png");
+    }
+  }
+
+  .project-content {
+    max-width: none;
+  }
+}
+/* 🎯 行動版 & 平板完美一條龍斷點（原 922px 修正為 992px） */
+@media (max-width: 992px) {
+    /* 服務項目行動版適應 */
+    .service-card {
+        width: 100%;
+        height: auto;
+        padding: 24px 16px;
+    }
+    
+    .services-grid {
+        gap: 24px;
+    }
+    
+
+    .hero {
+        /* 解除滿版限制，讓手機版高度由內容（文字 + 圖片）自然向下撐開，絕對不溢出 */
+        height: auto !important;
+        min-height: initial !important;
+        padding-top: 60px;  /* 給予手機版舒適的上下內距 */
+        padding-bottom: 40px;
+    }
+
+    /* 修正行動版圖片包裹盒子，給它一個安全、精緻的固定高度，防止它無限放大壓扁文字 */
+    .hero .col-7 > div {
+        height: 300px; /* 控制 Nelson 照片在手機上的舒適高度 */
+        width: 100%;
+        margin-top: 24px; /* 與上方按鈕拉開一點呼吸空間 */
+    }
+
+    /* 🎯 裝飾物終極防禦：手機版直接隱藏！
+       UIUX 觀點：手機螢幕極其珍貴，複雜的背景裝飾只會干擾閱讀，果斷隱藏才是高質感作法 */
+    .shape-decor {
+        display: none !important; 
+    }
+
+    /* 專案作品行動版懸浮卡片復刻 */
+
+    .project-card.card-to-hide:not(.active) {
+        display: none !important;
+    }
+    .project-card.card-to-hide.active {
+        display: flex !important; 
+    }
+
+    /* 部落格行動版適應 */
+    .blog-header-bar {
+        height: auto;
+        margin-bottom: 24px; 
+    }
+
+    .blogs-grid {
+        gap: 24px;
+    }
+
+    .blog-card {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .blog-card .blog-img-box {
+        width: 100% !important;
+        height: 240px !important;
+    }
+
+    /* 訂閱區塊行動版排版 */
+    .section-subscription {
+        height: auto;        
+        padding: 50px 0;
+    }
+
+}
+
+/* 漂浮動畫 */
+@keyframes superFloating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}

@@ -1,0 +1,488 @@
+/* ==========================================================================
+   services.css - 服務項目專頁最終優化重整版 (支援 RWD 4欄/單欄自動切換)
+   ========================================================================== */
+
+/* 服務首頁 Banner 主視覺 */
+.services-hero {
+    /*高度防禦：在桌機上改用 min-height，既符合設計稿的 532px，又能防止手機版卡片垂直堆疊時被砍頭 */
+    min-height: 532px;
+    padding: 80px 0; /* 左右內距交給 .container 處理以防水平捲軸 */
+    
+    /*核心背景圖三合一黃金公式 */
+    background-image: linear-gradient(var(--color-dark-40a), var(--color-dark-40a)), /* 這層是 Mask 遮罩 */
+    url('../Img/service_banner.png');
+    background-size: cover;       /* 確保圖片撐滿整個區塊，且不比例失真 */
+    background-position: center;  /* 無論螢幕怎麼縮放，圖片永遠置中對齊 */
+    background-repeat: no-repeat; /* 防止圖片像壁紙一樣重複平鋪 */
+    
+    /*防禦型備用色 */
+    background-color: var(--color-primary-50); 
+    
+    /* 確保內置元件垂直穩定 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* 1. 大外層 Section 基礎設定 */
+.services-steps {
+    background-color: var(--color-primary-900); /* #24140B */
+    padding: 80px 0;
+    width: 100%;
+}
+
+/* 2. 雙欄主容器 */
+.steps-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 1076px; /* 鎖定 Figma 黃金寬度 */
+    margin: 0 auto;
+}
+
+/* 3. 左側標題區 (width: 416px) */
+.steps-title-side {
+    width: 416px;
+    max-width: 416px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0; /* 防止被右側擠壓變形 */
+}
+
+
+/* 4. 右側步驟清單總群組 (width: 636px) */
+.steps-list-side {
+    width: 636px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* 單一列列排佈局 */
+.step-flow-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+}
+
+/* 5. 左側時間軸線軌道 (width: 40px) */
+.step-front-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40px;
+    flex-shrink: 0;
+}
+
+/* 圓圈數字球 */
+.step-circle-num {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    background: var(--color-neutral-0);
+    border-radius: 1000px;
+    
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--color-neutral-700); /* #404040 */
+}
+
+/* 時間軸向下垂直連線 */
+.step-track-line {
+    width: 0px;
+    height: 102px;
+    border-left: 0.5px solid var(--color-neutral-0); /* 白色極細連線 */
+}
+
+/* 6. 右側文字內文容器 (width: 572px) */
+.step-text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 40px; /* 建立每列步驟之間的舒適呼吸空間 */
+    gap: 12px;
+    width: 572px;
+}
+
+
+
+.hero-cards-grid {
+    width: 100%;
+    max-width: 1076px; /* 鎖定 Figma 完美的黃金內嵌寬度 */
+    margin: 0 auto;
+}
+
+/* 服務項目卡片本體樣式 (Desktop 4 欄並排) */
+.services-grid-card {
+    /* 🎯 4欄精密數學公式：(總寬 100% - 3個24px間距) / 4 */
+    width: calc((100% - (var(--gutter) * 3)) / 4);
+    background-color: var(--color-neutral-0);
+    color: var(--color-neutral-700);
+    padding: 32px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* 配合 Figma 規格：Icon 與文字水平居中 */
+    text-align: center;     /* 配合 Figma 規格 */
+    min-width: 251px;
+    /* 🛡️ 高度防禦：將 height 改為 min-height，確保文字長大卡片不破版 */
+    min-height: 240px; 
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 卡片 Hover 微動效（反白黑卡特效） */
+.services-grid-card:hover {
+    transform: translateY(-6px);
+    color: var(--color-neutral-0);
+    background-color: var(--color-primary-900);
+    box-shadow: 0 12px 32px rgba(36, 20, 11, 0.08);
+}
+
+.card-icon-box .material-symbols-outlined {
+    font-size: 28px;
+}
+
+/* 懸停時如果有按鈕的箭頭動畫配置 */
+.card-arrow-btn .material-symbols-outlined {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.services-grid-card:hover .card-arrow-btn .material-symbols-outlined {
+    transform: translateX(3px);
+}
+
+/*大外層 Section 基礎設定 */
+.services-cases {
+    background-color: var(--color-neutral-0); /* #FFFFFF */
+    padding: 80px 0;
+    width: 100%;
+}
+
+/* 總排版容器限制 */
+.cases-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 1076px; /* 鎖定 Figma 總寬度 */
+    margin: 0 auto;
+    gap: 40px; /* 標題區與列表區推開 40px */
+}
+
+/* 頂部標題區塊 */
+.cases-top-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+/*案例卡片列表排版包覆層 */
+.cases-list-wrapper {
+    width: 100%;
+}
+
+/*單一案例卡片本體樣式 (Figma 2欄精密公式) */
+.user-case-card {
+    /* 🎯 2欄精密運算公式：(總寬 100% - 1個24px間距) / 2 = 526px */
+    width: calc((100% - var(--gutter)) / 2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px; /* 完美契合 Figma 卡片內部 gap */
+}
+
+/* 案例圖片方塊容器 (width: 526px, height: 305.99px) */
+.case-img-box {
+    width: 100%;
+    height: 306px;
+    overflow: hidden;
+}
+
+.case-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 確保任何比例的案例大圖都不縮放變形 */
+    transition: transform 0.4s ease;
+}
+
+/* 懸停時圖片微微放大的高級感效果 */
+.user-case-card:hover .case-img-box img {
+    transform: scale(1.03);
+}
+
+/*中段標籤資訊列 */
+.case-info-top {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.case-labels {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 卡片底部排版區塊 (文字說明與按鈕水平平排) */
+.case-bottom-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+/* 🎯 實心深色箭頭圓形按鈕 (Figma: 48px x 48px, bg: #404040) */
+.case-circle-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    background: var(--color-neutral-700); /* #404040 */
+    border-radius: 1000px;
+    color: var(--color-neutral-0); /* 白色箭頭 */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* 按鈕懸停特效 */
+.case-circle-btn:hover {
+    background: var(--color-primary-900); /* 移上去時變成更深邃的黑咖啡色 */
+    transform: scale(1.05);
+}
+
+.case-circle-btn .material-symbols-outlined {
+    font-size: 24px;
+}
+
+/*大外層大區塊 */
+.services-faq {
+    background-color: var(--color-primary-50); /* 米色底色襯托白底區塊 */
+    padding: 80px 0;
+    width: 100%;
+}
+
+/*雙欄主軸容器 */
+.faq-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 1076px; /* 完美鎖定 Figma 黃金限制寬度 */
+    margin: 0 auto;
+}
+
+/*左側標題固定欄 (width: 416px) */
+.faq-title-side {
+    width: 416px;
+    max-width: 416px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0; /* 骨架保護：絕不被壓縮 */
+}
+
+/*右側清單欄 (width: 636px) */
+.faq-list-side {
+    width: 636px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/*單一摺疊卡片物件 (Collapse 本體) */
+.faq-collapse-item {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px; /* 吻合 Figma padding: 24px */
+    border-bottom: 1px solid var(--color-primary-900); /* 吻合 Figma 咖啡色細線分隔線 */
+    transition: background-color 0.3s ease;
+}
+
+/*輕微 Hover 提示可點擊 */
+.faq-collapse-item:hover {
+    background-color: rgba(36, 20, 11, 0.02);
+}
+
+/*卡片頂部觸發列 (Header Box) */
+.faq-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px; /* 吻合 Figma gap: 16px */
+    width: 100%;
+    cursor: pointer;
+}
+
+/*問題主文字 */
+.faq-question {
+    flex-grow: 1; /* 吃滿多餘空間，將箭頭推往最右側 */
+}
+
+/*右側箭頭容器 */
+.faq-icon-box {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-700);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*下方答案區塊 (Body & Answer) */
+.faq-body {
+    width: 100%;
+    padding-left: 48px; /* 精密對齊公式：數字寬度 32px + 間距 16px = 48px，讓文字開頭對齊問題 */
+    box-sizing: border-box;
+    display: none; /* 預設完全收合隱藏 */
+}
+
+/*動態解鎖狀態：當卡片被賦予 .active 類別時的效果 */
+.faq-collapse-item.active .faq-body {
+    display: block; /* 展開顯示答案 */
+}
+
+.faq-collapse-item.active .faq-icon-box {
+    transform: rotate(180deg); /* 🎯 CSS 黑魔法：箭頭直接原地反轉，不需要抽換 Icon，質感極高 */
+}
+
+/* ==========================================================================
+   🚀 RWD 行動版斷點防禦機制 (對齊 base.css 的 992px 規格)
+   ========================================================================== */
+@media (max-width: 992px) {
+    /* 調整主視覺區塊內距與背景圖路徑 */
+    .services-hero {
+        padding: 60px 16px;
+        min-height: auto; /* 釋放高度，讓手機版完全靠內容自然撐開 */  
+        background-image: linear-gradient(var(--color-dark-40a), var(--color-dark-40a)), /* 這層是 Mask 遮罩 */
+        url('../Img/mobile/service_bannerm.png'); 
+    }
+    
+    .hero-title-box {
+        margin-bottom: 32px; /* 手機版縮小標題與卡片的間距 */
+    }
+
+    /* 行動版橫向雙欄並排置中防禦 */
+    .hero-cards-grid {
+        flex-direction: row;     /* 強制維持橫向排列，允許 flex-wrap 發揮作用 */
+        justify-content: center;  /* 左右完美置中卡片群 */
+        align-items: stretch;    /* 讓左右兩張卡片高度強行對齊，畫面更整齊 */
+    }
+
+    /*  核心修正：將卡片在行動版改為 2 欄一行（100% 扣掉 1 個 24px 間距後平分） */
+    .services-grid-card {
+        width: calc((100% - var(--gutter)) / 2); 
+        min-width: 0;   /* 🌟 關鍵：解除桌機版的 251px 限制，否則在小手機會擠爆塞不下 */
+        min-height: auto;
+        padding: 24px 16px;        /* 稍微縮小內距，留給中英文字體更舒適的伸展空間 */
+    }
+    
+    /* 行動版其餘文字與按鈕置中微調 */
+    .text-center-md {
+        text-align: center;
+    }
+    
+    .card-arrow-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+    }
+
+/* 行動版適度內縮 padding 避免畫面拉得過長 */
+  .services-steps {
+        padding: 60px 20px;
+    }
+
+    /* 🎯 轉換為垂直單欄，防止大字體在大手機上擠壓爆版 */
+    .steps-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .steps-list-side {
+        width: 100%;
+    }
+
+    .step-text-content {
+        width: 100%; /* 自動適應手機螢幕寬度 */
+    }
+
+    .services-cases {
+        padding: 60px 16px;
+    }
+
+    .cases-container {
+        gap: 24px;
+    }
+
+    /* 🎯 核心防禦：卡片在手機版解鎖寬度限制，轉為 100% 滿版單欄排列 */
+    .user-case-card {
+        width: 100%;
+        gap: 16px;
+    }
+
+    /* 確保圖片在手機螢幕縮放時，依然能鎖定黃金比例不壓扁 */
+    .case-img-box {
+        height: auto;
+        aspect-ratio: 526 / 306; 
+    }
+
+    .case-labels {
+        flex-direction: column-reverse; /* 將橫排換成直排，並強行反轉（日期跑到標籤上面） */
+        align-items: flex-start;        /* 讓文字一律靠左對齊，視覺更整齊 */
+        gap: 4px;                       /* 調整日期與標籤之間的垂直微距 */
+    }
+
+    .services-faq {
+        padding: 60px 16px; /* 縮小留白，防止手機畫面過長 */
+    }
+
+    /* 轉換為垂直單欄，防文字擠壓 */
+    .faq-container {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .faq-title-side {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .faq-list-side {
+        width: 100%;
+    }
+
+    .faq-collapse-item {
+        padding: 20px 8px; /* 手機版兩側適度留白，增加呼吸感 */
+    }
+
+    .faq-body {
+        padding-left: 0; /* 手機螢幕較窄，取消左側縮進，釋放最大閱讀面積 */
+    }
+}

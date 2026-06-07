@@ -1,0 +1,314 @@
+/* ==========================================================================
+   project.css - 作品集專頁專屬高質感樣式
+   ========================================================================== */
+
+/* ---作品集 Hero Banner --- */
+.project-hero {
+    /*高度防禦：在桌機上改用 min-height，既符合設計稿的 532px，又能防止手機版卡片垂直堆疊時被砍頭 */
+    min-height: 532px;
+    padding: 80px 0; /* 左右內距交給 .container 處理以防水平捲軸 */
+    
+    /*核心背景圖三合一黃金公式 */
+    background-image: linear-gradient(var(--color-dark-40a), var(--color-dark-40a)), /* 這層是 Mask 遮罩 */
+    url('../Img/project_banner.png');
+    background-size: cover;       /* 確保圖片撐滿整個區塊，且不比例失真 */
+    background-position: center;  /* 無論螢幕怎麼縮放，圖片永遠置中對齊 */
+    background-repeat: no-repeat; /* 防止圖片像壁紙一樣重複平鋪 */
+    
+    /*防禦型備用色 */
+    background-color: var(--color-primary-50); 
+    
+    /* 確保內置元件垂直穩定 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ---分類標籤微互動 --- */
+.project-filter-tabs {
+    padding-bottom: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 居中排列 */
+    gap: 16px;
+}
+
+.filter-btn {
+    /* 核心精緻感：寬 150px、高 50px 的長方形比例 */
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-700);
+    background-color: transparent;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 🌟 重點：還原設計稿當前選中狀態（深咖啡滿版背景、白色字體） */
+.filter-btn.active {
+    background-color: var(--color-primary-900) !important; /* 精確對齊全站深色 #24140B */
+    color: var(--color-neutral-0) !important;
+    font-weight: 700;
+}
+
+/* 輕微的滑鼠懸停反饋 */
+.filter-btn:hover:not(.active) {
+    color: var(--color-neutral-0);
+    background-color: var(--color-primary-900);
+    box-shadow: 0 12px 32px rgba(36, 20, 11, 0.08);
+}
+
+.project-content {
+  max-width: 386px;
+}
+
+.project-card {
+    width: 100%;        
+    height: 397px;      
+    position: relative;
+    overflow: hidden;    
+}
+
+.project-card {
+    
+  &:nth-of-type(1) {
+    background-image: url("../Img/project_1.png");
+  }
+  &:nth-of-type(2) {
+    background-image: url("../Img/project_2.png");
+  }
+  &:nth-of-type(3) {
+    background-image: url("../Img/project_3.png");
+  }
+  &:nth-of-type(4) {
+    background-image: url("../Img/project_4.png");
+  }
+}
+
+.projects-btn {
+    transition: background-color 0.3s ease;
+}
+
+.projects-btn:hover {
+    background-color: var(--color-neutral-900); 
+} 
+
+.project-modal {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-dark-60a); /* 黑半透明背景襯托 */
+    z-index: 1050; /* 強行超越全站導覽列的 999 權限 */
+    opacity: 0;
+    pointer-events: none;
+    overflow-y: auto; /* 超重要：當內文長網格超出螢幕時，允許彈出視窗內部垂直滾動 */
+    padding: 60px 0;
+    transition: opacity 0.35s ease-in-out;
+}
+
+/* 當被 JavaScript 賦予 .show 類別時，解除隱藏並啟動淡入 */
+.project-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 彈出視窗主體盒（完美複刻設計稿 1076px 黃金寬度限制） */
+.modal-dialog {
+    position: relative;
+    width: calc(100% - 48px);
+    max-width: 1076px; /* 像素級對齊底部的 1076 Hug */
+    margin: 0 auto;
+    background-color: var(--color-neutral-0);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    height: 72px; /* 完美重現 72 Hug */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 24px;
+}
+
+/* 右上角懸浮關閉按鈕 (X) */
+.modal-close-btn {
+    color: var(--color-neutral-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    transform: rotate(90deg);
+    color: var(--color-neutral-900);
+}
+
+/* 頂部形象圖比例 */
+.modal-hero-img {
+    width: 100%;
+    height: 294px;
+    overflow: hidden;
+}
+
+.modal-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* 右欄側邊項目：用極細線條與左方區隔 */
+.spec-meta {
+    border-left: 1px solid var(--color-neutral-500);
+    min-width: 280px;
+}
+
+/* 長幅設計稿外部包裹盒 (溫潤米色底襯) */
+.modal-mockup-wrapper {
+    width: 100%;
+}
+
+.mockup-img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+/* ==========================================================================
+    響應式中斷點防禦：手機與平板行動版 (max-width: 992px)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .project-hero {
+        padding: 60px 16px;
+        min-height: auto; /* 釋放高度，讓手機版完全靠內容自然撐開 */  
+        background-image: linear-gradient(var(--color-dark-40a), var(--color-dark-40a)), /* 這層是 Mask 遮罩 */
+         url('../Img/mobile/project_bannerm.png'); 
+    }
+
+    .hero-title-box {
+        margin-bottom: 32px; /* 手機版縮小標題與卡片的間距 */
+    }
+
+    .project-card {
+        height: auto;               /* 解除固定高度，讓卡片隨內容自然伸展 */
+        min-height: initial;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;  /* 確保漂浮字盒永遠貼緊底部 */
+        
+        /* 🌟 終極防禦複合寫法：完美重現 280px 頂部保留與三邊 16px 安全留白 */
+        padding: 280px 16px 16px 16px !important; 
+        /* 順序為：上(280px) -> 右(16px) -> 下(16px) -> 左(16px) */
+
+        background-size: cover;
+        background-position: center;
+
+        /* 確保行動版背景圖路徑正確 */
+        &:nth-of-type(1) { background-image: url("../Img/mobile/project_1m.png"); }
+        &:nth-of-type(2) { background-image: url("../Img/mobile/project_2m.png"); }
+        &:nth-of-type(3) { background-image: url("../Img/mobile/project_3m.png"); }
+        &:nth-of-type(4) { background-image: url("../Img/mobile/project_4m.png"); }
+    }
+
+    .project-content {
+        width: 100%;                /* 自動撐滿父層扣掉 16px 內距後的 319px 空間 */
+        max-width: none;            /* 解除桌機版限制 */
+        padding: 24px !important;   /* 內置元件的舒適呼吸空間 */
+        background-color: var(--color-primary-50); /* #fdf7f1 溫潤米白色底 */
+        text-align: center;         /* 文字與按鈕完美置中 */
+        box-shadow: 0 8px 20px rgba(36, 20, 11, 0.06); /* 加上微陰影增加層次懸浮感 */
+    }
+
+    .project-filter-tabs {
+        justify-content: flex-start; /* 行動版改為靠左對齊，方便手指往右滑 */
+        flex-wrap: nowrap;           /* 強制絕對不允許折行 */
+        overflow-x: auto;            /* 關鍵：開啟水平溢出捲動軸 */
+        padding-left: 16px;          /* 給予左側邊緣舒適的留白 */
+        padding-right: 16px;
+        padding-bottom: 16px;
+        margin-bottom: 32px;
+        gap: 12px;
+        
+        /* 隱藏行動版原生醜陋的滾動條，維持極致簡潔視覺 */
+        scrollbar-width: none;
+        /* 加上這行：解鎖 iOS 蘋果手機的「感應微幅回彈」與「絲滑動量滾動」 */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .project-filter-tabs::-webkit-scrollbar {
+        display: none;               /* Safari & Chrome & Edge */
+    }
+
+    .filter-btn {
+        width: auto;                 /* 解除原本平分 3 個按鈕的百分比限制 */
+        padding: 0 24px;             /* 讓按鈕寬度根據中文字數自動延伸，並左右保持內距 */
+        height: 44px;
+        flex-shrink: 0;
+    }
+
+    .card-info {
+        padding: 24px;
+        padding-bottom: 80px; /* 行動版文字往下推，為絕對定位按鈕留下安全走廊 */
+        padding-right: 24px;
+    }
+
+    .card-arrow-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .project-modal {
+        padding: 32px 0; /* 上下留出一點空間，透出後方的黑半透明遮罩 */
+
+    .modal-dialog {
+        width: calc(100% - 24px); /* 左右留出各 12px 的邊距空間，完美對齊 Hug 外框 */
+        max-width: 450px;
+        min-height: 100vh;
+    }
+
+    .modal-body {
+        padding: 32px 20px !important;
+    }
+
+    .modal-hero-img {
+        height: 320px;
+    }
+
+    /* 完美還原設計稿技術規格區（直排堆疊、單一頂部水平分界線） */
+    .modal-spec-grid {
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: 1px solid var(--color-neutral-500);
+        align-items: center; /* 移除底部線條，只保留頂部單一分界線 */
+        gap: 16px;
+        padding: 20px 0;
+        margin-bottom: 32px;
+    }
+
+    /* 手機版將規格表改為垂直直排，並取消左側分隔線 */
+    .spec-meta {
+        border-left: none; /* 移除桌機版的左側直線 */
+        border-top: none;  /* 移除原本多餘的線條 */
+        padding-left: 0 !important;
+        padding-top: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px; /* 讓設計原則與開發方式垂直拉開微距 */
+    }
+
+    .modal-mockup-wrapper {
+        padding: 0px !important;
+    }
+    }
+}
